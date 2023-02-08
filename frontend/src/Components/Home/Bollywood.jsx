@@ -6,7 +6,8 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
-import logger from 'use-reducer-logger';
+
+import LoadingBox from '../LoadingBox';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -39,7 +40,7 @@ const Bollywood = () => {
     ],
   };
 
-  const [{ loading, error, movies }, dispatch] = useReducer(logger(reducer), {
+  const [{ loading, error, movies }, dispatch] = useReducer(reducer, {
     loading: true,
     movies: [],
     error: '',
@@ -61,29 +62,25 @@ const Bollywood = () => {
     <>
       <Section>
         <h1> Hollywood</h1>
-        {/* <Carousel {...settings}>
-          {moviesAPI.hollywood.map((item, index) => (
-            <Wrap key={index}>
-              <div>
-                {' '}
-                <NavLink to={`/details/${item.id}`}>
-                  <img src={item.CardImg} alt="slideimg" />
-                </NavLink>{' '}
-              </div>
-            </Wrap>
-          ))}
-        </Carousel> */}
 
         <Carousel {...settings}>
-          {movies.slice(61, 74).map((movies) => (
-            <Wrap key={movies._id}>
-              <div>
-                <NavLink to={`/details/${movies._id}`}>
-                  <img src={movies.CardImg} alt="slideimg" />
-                </NavLink>
-              </div>
-            </Wrap>
-          ))}
+          {loading ? (
+            <div>
+              <LoadingBox />
+            </div>
+          ) : error ? (
+            <div>{error}</div>
+          ) : (
+            movies.slice(61, 74).map((movies) => (
+              <Wrap key={movies._id}>
+                <div>
+                  <NavLink to={`/details/${movies._id}`}>
+                    <img src={movies.CardImg} alt="slideimg" />
+                  </NavLink>
+                </div>
+              </Wrap>
+            ))
+          )}
         </Carousel>
       </Section>
     </>

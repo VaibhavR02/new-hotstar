@@ -1,13 +1,11 @@
 import React, { useEffect, useReducer } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
 import axios from 'axios';
-import logger from 'use-reducer-logger';
+import LoadingBox from '../LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,7 +39,7 @@ const Trending = () => {
     ],
   };
 
-  const [{ loading, error, movies }, dispatch] = useReducer(logger(reducer), {
+  const [{ loading, error, movies }, dispatch] = useReducer(reducer, {
     loading: true,
     movies: [],
     error: '',
@@ -64,28 +62,26 @@ const Trending = () => {
     <>
       <Section>
         <h1> Trending</h1>
-        {/* <Carousel {...settings}>
-          {moviesAPI.trending.map((item, index) => (
-            <Wrap key={index}>
-              <div>
-                <NavLink to={`/details/${item.id}`}>
-                  <img src={item.CardImg} alt="slideimg" />
-                </NavLink>
-              </div>
-            </Wrap>
-          ))}
-        </Carousel> */}
 
         <Carousel {...settings}>
-          {movies.slice(10, 25).map((movies) => (
-            <Wrap key={movies._id}>
-              <div>
-                <NavLink to={`/details/${movies._id}`}>
-                  <img src={movies.CardImg} alt="slideimg" />
-                </NavLink>
-              </div>
-            </Wrap>
-          ))}
+          {loading ? (
+            <div>
+              {' '}
+              <LoadingBox />
+            </div>
+          ) : error ? (
+            <div>{error}</div>
+          ) : (
+            movies.slice(10, 25).map((movies) => (
+              <Wrap key={movies._id}>
+                <div>
+                  <NavLink to={`/details/${movies._id}`}>
+                    <img src={movies.CardImg} alt="slideimg" />
+                  </NavLink>
+                </div>
+              </Wrap>
+            ))
+          )}
         </Carousel>
       </Section>
     </>

@@ -5,7 +5,8 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import logger from 'use-reducer-logger';
+
+import LoadingBox from '../LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -39,7 +40,7 @@ const Originals = () => {
     ],
   };
 
-  const [{ loading, error, movies }, dispatch] = useReducer(logger(reducer), {
+  const [{ loading, error, movies }, dispatch] = useReducer(reducer, {
     loading: true,
     movies: [],
     error: '',
@@ -65,7 +66,9 @@ const Originals = () => {
         <h1> Originals</h1>
         <Carousel {...settings}>
           {loading ? (
-            <div>Loading....</div>
+            <div>
+              <LoadingBox />
+            </div>
           ) : error ? (
             <div>{error}</div>
           ) : (

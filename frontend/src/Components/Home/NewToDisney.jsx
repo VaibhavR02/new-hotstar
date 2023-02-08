@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-// import moviesAPI from '../../moviesAPI.json';
 import axios from 'axios';
-import logger from 'use-reducer-logger';
+import LoadingBox from '../LoadingBox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,7 +39,7 @@ const NewToDisney = () => {
     ],
   };
 
-  const [{ loading, error, movies }, dispatch] = useReducer(logger(reducer), {
+  const [{ loading, error, movies }, dispatch] = useReducer(reducer, {
     loading: true,
     movies: [],
     error: '',
@@ -63,15 +62,23 @@ const NewToDisney = () => {
       <Section>
         <h1> New To Disney</h1>
         <Carousel {...settings}>
-          {movies.slice(26, 35).map((movies) => (
-            <Wrap key={movies._id}>
-              <div>
-                <NavLink to={`/details/${movies._id}`}>
-                  <img src={movies.CardImg} alt="slideimg" />
-                </NavLink>
-              </div>
-            </Wrap>
-          ))}
+          {loading ? (
+            <div>
+              <LoadingBox />
+            </div>
+          ) : error ? (
+            <div>{error}</div>
+          ) : (
+            movies.slice(26, 35).map((movies) => (
+              <Wrap key={movies._id}>
+                <div>
+                  <NavLink to={`/details/${movies._id}`}>
+                    <img src={movies.CardImg} alt="slideimg" />
+                  </NavLink>
+                </div>
+              </Wrap>
+            ))
+          )}
         </Carousel>
       </Section>
     </>
