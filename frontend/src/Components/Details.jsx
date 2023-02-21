@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react'; //  { useEffect, useState }
+import React, { useEffect, useReducer, useState } from 'react'; //  { useEffect, useState }
 import styled from 'styled-components';
 import PlayIcon from './images/play-icon-black.png';
 import TrailerIcon from './images/play-icon-white.png';
@@ -26,6 +26,7 @@ const reducer = (state, action) => {
 const Details = () => {
   const params = useParams();
   const { id } = params;
+  const [showPlayer, setShowPlayer] = useState(false);
 
   const [{ loading, error, movie }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -77,7 +78,12 @@ const Details = () => {
               <img src={PlayIcon} alt="playIcon" /> <span>Play</span>
             </PlayBtn>
             <TrailerBtn>
-              <img src={TrailerIcon} alt="TrailerIcon" /> <span>Trailer</span>
+              <img
+                src={TrailerIcon}
+                onClick={setShowPlayer(true)}
+                alt="TrailerIcon"
+              />{' '}
+              <span>Trailer</span>
             </TrailerBtn>
             <AddtoPlaylistBtn>
               {' '}
@@ -93,6 +99,7 @@ const Details = () => {
     </Background>
   );
 };
+
 const Background = styled.main`
   min-height: 95vh;
 
@@ -360,4 +367,14 @@ const GroupwarchBtn = styled.button`
     }
   }
 `;
+
+// const Player = styled.div`
+//   position: absolute;
+//   inset: 0;
+//   background: #000;
+//   opacity: 50;
+//   height: 100%;
+//   width: 100%;
+//   z-index: 50;
+// `;
 export default Details;
