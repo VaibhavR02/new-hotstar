@@ -26,6 +26,7 @@ const reducer = (state, action) => {
 const Details = () => {
   const params = useParams();
   const { id } = params;
+  // eslint-disable-next-line
   const [showPlayer, setShowPlayer] = useState(false);
 
   const [{ loading, error, movie }, dispatch] = useReducer(reducer, {
@@ -78,11 +79,7 @@ const Details = () => {
               <img src={PlayIcon} alt="playIcon" /> <span>Play</span>
             </PlayBtn>
             <TrailerBtn>
-              <img
-                src={TrailerIcon}
-                onClick={setShowPlayer(true)}
-                alt="TrailerIcon"
-              />{' '}
+              <img src={TrailerIcon} alt="TrailerIcon" /> <span>Trailer</span>
               <span>Trailer</span>
             </TrailerBtn>
             <AddtoPlaylistBtn>
