@@ -1,0 +1,20 @@
+.frame {
+  width: 100vh;
+  height: 50vh;
+}
+@media screen and (min-width: 991px) and (max-width: 1200px) {
+  .frame {
+    height: 55vh;
+  }
+}
+@media screen and (min-width: 550px) and (max-width: 991px) {
+  .frame {
+    height: 52vh;
+  }
+}
+@media screen and (min-width: 280px) and (max-width: 550px) {
+  .frame {
+    height: 42vh;
+    width: 60vh;
+  }
+}

@@ -8,6 +8,7 @@ const movieSchema = new mongoose.Schema({
   BackgroundImg: { type: String },
   type: { type: String },
   Genres: { type: String },
+  video: { type: String },
 });
 
 const Movie = mongoose.model('Movie', movieSchema);

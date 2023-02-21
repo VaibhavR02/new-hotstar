@@ -1,4 +1,12 @@
+import bcrypt from 'bcryptjs';
 const data = {
+  users: [
+    {
+      name: 'vaibhav',
+      email: 'vaibhavrandale800@gmail.com',
+      password: bcrypt.hashSync('80079'),
+    },
+  ],
   movies: [
     {
       arrno: '1',
@@ -13,6 +21,7 @@ const data = {
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABQeSki_h-ctI9Iec9MCOIG-Q2D-FAET3iXk8vRE3XfyFO0s_fClB77a12uxKbvJeFpDfmfFnP_7LHiW8NVTDLPudjuxU.jpg?r=8dc',
       type: 'kidsTv',
       Genres: '2019 | 7+ | 1h 27m | Music & Musicals',
+      video: 'MixfE6OHMRA',
     },
     {
       arrno: '2',
@@ -27,6 +36,7 @@ const data = {
       BackgroundImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABT1x15fYzMrrvproB6HMhRUWvKYGUD4j_vLnaTghJfzog3Ww66vHj6zcDI25mJU4ObcZ-wYCFizN5HqSxGBZlsccTVv8.jpg?r=82d',
       type: 'kidsTv',
+      video: 'Pq7-cFgcdL8',
     },
 
     {
@@ -42,8 +52,11 @@ const data = {
       Title: 'Motu Patlu VS Robo Kids',
       TitleImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABSyYcCWjPIet9LdqAG0DMhSimUO51qT_DFVzQCuoeLpRiC4A11EjAL1jCMoxpLm5v7nMeuztaqhKIQSz4a3KILLtXjXMivUca_Nb.png?r=714',
+      video: 'NccG63S8Vk4',
     },
+
     {
+      video: 'OvblHC3wSU0',
       arrno: '4',
       CardImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABT34XTrntjpcAPggzXQ69OXsEPG-_GlWmhWAouOrHCOWPp1sHw-9omNQzdMwwrhcvI3y5tL3lTkLGN2kP9oZnWEZWjg.jpg?r=8ae',
@@ -58,6 +71,7 @@ const data = {
       Genres: '2017 | 7+ | 1h 18m | Hindi-Language Movies',
     },
     {
+      video: '5S-kFkDnvMg',
       arrno: '5',
       BackgroundImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABaI0I6aMJ8EcxnW-Xpn7QaIVVXlbc1rGuREa6MyulpLNa-b1NHSn1MXvG11WlYccr4r4ACMI13TYMu_ABgIQkcVOe2kN.jpg?r=ef1',
@@ -73,6 +87,7 @@ const data = {
     },
 
     {
+      video: 'pcq40DVAqlU',
       arrno: '6',
       TitleImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUsJG9kKC66zyng6V9Zm43znYjMiO12zxIWWPJjOw7M9WJdkYOy89CrNyyX80NXowGl3PdBsmWkl-KYIIAe77kLR27U6v-u8RT6a.png?r=864',
@@ -87,6 +102,7 @@ const data = {
         'To find a treasure that could help their city thrive, Motu and Patlu must thwart a don and his henchman, who want the wealth for themselves!',
     },
     {
+      video: '54YkcpdSmgQ',
       arrno: '7',
       CardImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUkV2lDWN0THdONfTSPMhJ-T9oq2XVaCSVo-0Omjsj7jgxsUNA1VBOwRkduRvBnjtb9UFY_gWK0GNtlspqKKXcGqVrg3.jpg?r=86b',
@@ -102,6 +118,7 @@ const data = {
     },
 
     {
+      video: 'aZ8Dv3awnfs',
       arrno: '8',
       TitleImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABaDiT8lqosNkR5j2GNdA8V9svLrV_12PvGAOK_zUS4Wc6Hltc5nS0nj-l2iOvQQ5t80NFG1c_PqfQNc9kZBx9a1Ij0ypCOdZZ9oP.png?r=63d',
@@ -116,6 +133,7 @@ const data = {
       Genres: '2016 | 7+ | 1 Season | TV Cartoons',
     },
     {
+      video: '0wzuj8oaufU',
       arrno: '9',
       Genres: '2013 | 7+ | 1h 11m | Hindi-Language Movies',
       CardImg:
@@ -131,6 +149,7 @@ const data = {
     },
 
     {
+      video: '',
       arrno: '10',
       CardImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABarxTs_cifoZAlZVunsoS1U5-JWz_1uktmjXLWQn3YfN5OkHSI0U0mp_MXKwmLlsT7Hy4zlIb1FSRVDkAaFsdAHXelms0CWZDtLB0PCxePMCl3W23Y5wgPCObt5Khg.jpg?r=91c',
@@ -527,6 +546,7 @@ const data = {
       TitleImg:
         'https://occ-0-4704-58.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABaaHuTicdj0Fs1i6AZ4QdxBmpbkHh6B7-p6MHyiQq5BBf-D32iMvtZunmmkQH-xMALkBOx5rF8SresHUpvsxUXUxBH0N9SqSxvXL.png?r=c0f',
       Title: 'Angry Birds',
+      video: '',
     },
     {
       arrno: '38',

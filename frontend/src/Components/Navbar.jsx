@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../Components/images/logo.svg';
 import homeIcon from '../Components/images/home-icon.svg';
@@ -10,11 +10,21 @@ import moviesIcon from '../Components/images/movie-icon.svg';
 import seriesIcon from '../Components/images/series-icon.svg';
 import admin from '../Components/images/admin.png';
 import shutdownIcon from '../Components/images/shut-down.svg';
+import userIcon from '../Components/images/user.svg';
+import penIcon from '../Components/images/login.ico';
+import { Store } from '../Store';
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const ifPopupOpen = () => setToggle(!toggle);
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
 
+  const signoutHandler = (e) => {
+    e.preventDefault();
+    ctxDispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+  };
   return (
     <>
       <Nav>
@@ -71,31 +81,94 @@ const Navbar = () => {
           </li>
         </MenuLinks>
         <UserAuth>
-          <img onClick={ifPopupOpen} src={admin} alt="avatar/admin" />
+          {userInfo ? (
+            <img
+              onMouseEnter={ifPopupOpen}
+              onMouseLeave={!ifPopupOpen}
+              src={admin}
+              alt="avatar/admin"
+            />
+          ) : (
+            <img
+              onMouseEnter={ifPopupOpen}
+              onMouseLeave={!ifPopupOpen}
+              src={userIcon}
+              alt="avatar/admin"
+            />
+          )}
         </UserAuth>
 
         <PopupMenu activeState={toggle}>
           <li>
-            <NavLink to="/home" className="nav-link">
+            <NavLink className="nav-link">
               <img
-                src={homeIcon}
+                src={userIcon}
                 alt="link"
                 style={{ width: '0.8rem', height: '0.8rem' }}
               />
-              <span>HOME</span>
+              <span>
+                {userInfo ? (
+                  userInfo.name
+                ) : (
+                  <Link
+                    className="nav-link"
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    User
+                  </Link>
+                )}
+              </span>
             </NavLink>
           </li>
 
-          <li>
-            <NavLink to="/" className="nav-link">
-              <img
-                src={shutdownIcon}
-                alt="link"
-                style={{ width: '0.8rem', height: '0.8rem' }}
-              />
-              <span>Sign Out</span>
-            </NavLink>
-          </li>
+          {userInfo ? (
+            <li>
+              <NavLink to="/" className="nav-link">
+                <img
+                  src={shutdownIcon}
+                  alt="link"
+                  style={{ width: '0.8rem', height: '0.8rem' }}
+                />
+                <span>
+                  <Link
+                    style={{ color: 'white', textDecoration: 'none' }}
+                    to="#signout"
+                    onClick={signoutHandler}
+                  >
+                    {' '}
+                    Sign Out
+                  </Link>
+                </span>
+              </NavLink>
+            </li>
+          ) : (
+            <li>
+              <NavLink to="/signin" className="nav-link">
+                <img
+                  src={penIcon}
+                  alt="link"
+                  style={{
+                    width: '0.8rem',
+                    height: '0.8rem',
+                  }}
+                />
+                <span>
+                  <Link
+                    to="/signin"
+                    style={{
+                      color: 'white',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Sign In
+                  </Link>
+                </span>
+              </NavLink>
+            </li>
+          )}
         </PopupMenu>
       </Nav>
     </>

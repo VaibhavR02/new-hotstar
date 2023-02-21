@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import PlayIcon from './images/play-icon-black.png';
 import TrailerIcon from './images/play-icon-white.png';
 import GrpwatchIcon from './images/group-icon.png';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
-
+import { toast } from 'react-hot-toast';
+import TrailerPopup from './TrailerPopup';
+import LoadingBox from './LoadingBox';
+import '../styles/frame.css';
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -24,9 +27,14 @@ const reducer = (state, action) => {
 };
 
 const Details = () => {
+  // const navigate = useNavigate();
   const params = useParams();
   const { id } = params;
   // eslint-disable-next-line
+  // const { state, dispatch: ctxDispatch } = useContext(Store);
+
+  // const { userInfo } = state;
+
   const [showPlayer, setShowPlayer] = useState(false);
 
   const [{ loading, error, movie }, dispatch] = useReducer(reducer, {
@@ -48,8 +56,16 @@ const Details = () => {
     fetchData();
   }, [id]);
 
+  // const VideoHandler = () => {
+  //   // navigate('/signin?redirect=/Player');
+  // };
+  const DefaultVideoHandler = () => {
+    // navigate('/signin?redirect=/defaultPlayer');
+    toast.error('Sorry ! movie is not available you can watch trailer');
+  };
+
   return loading ? (
-    <div>loading....</div>
+    <LoadingBox />
   ) : error ? (
     <div>{error}</div>
   ) : (
@@ -72,16 +88,16 @@ const Details = () => {
           <ImagesTitle>
             <img src={movie.TitleImg} alt="img/title" />
           </ImagesTitle>
-          <h2>{movie.Genres}</h2>
+          <h1>{movie.Genres}</h1>
           <p>{movie.Description}</p>
           <ButtonGroups>
-            <PlayBtn>
+            <PlayBtn onClick={DefaultVideoHandler}>
               <img src={PlayIcon} alt="playIcon" /> <span>Play</span>
             </PlayBtn>
-            <TrailerBtn>
+            <TrailerBtn onClick={() => setShowPlayer(true)}>
               <img src={TrailerIcon} alt="TrailerIcon" /> <span>Trailer</span>
-              <span>Trailer</span>
             </TrailerBtn>
+
             <AddtoPlaylistBtn>
               {' '}
               <span></span>
@@ -92,6 +108,19 @@ const Details = () => {
             </GroupwarchBtn>
           </ButtonGroups>
         </Content>
+
+        <TrailerPopup trigger={showPlayer} setTrigger={setShowPlayer}>
+          <iframe
+            className="frame"
+            // width="560"
+            // height="315"
+            src={`https://www.youtube.com/embed/${movie.video}`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </TrailerPopup>
       </Container>
     </Background>
   );
@@ -365,13 +394,4 @@ const GroupwarchBtn = styled.button`
   }
 `;
 
-// const Player = styled.div`
-//   position: absolute;
-//   inset: 0;
-//   background: #000;
-//   opacity: 50;
-//   height: 100%;
-//   width: 100%;
-//   z-index: 50;
-// `;
 export default Details;

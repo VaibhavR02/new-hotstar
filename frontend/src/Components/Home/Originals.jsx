@@ -66,9 +66,7 @@ const Originals = () => {
         <h1> Originals</h1>
         <Carousel {...settings}>
           {loading ? (
-            <div>
-              <LoadingBox />
-            </div>
+            <LoadingBox />
           ) : error ? (
             <div>{error}</div>
           ) : (
