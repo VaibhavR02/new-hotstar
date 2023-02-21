@@ -24,6 +24,7 @@ const Navbar = () => {
     e.preventDefault();
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    window.location.href = '/';
   };
   return (
     <>
